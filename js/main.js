@@ -58,12 +58,22 @@ fetch('./data.db')
     
     let newHeight = content.offsetHeight;
     console.log("height", newHeight);
-    if (newHeight > height){
-      document.getElementById('text_top').style.fontSize="0.7rem";
-      document.getElementById('text_top').style.lineHeight="1rem";
-      document.getElementById('text_bottom').style.fontSize="0.65rem";
-      document.getElementById('text_bottom').style.lineHeight="1rem";
-    }
+    let $fontsize = content.style.fontSize;
+    console.log("$fontsize", $fontsize);
+
+	function changeSize (content, fontSize){
+		let $fontSize = fontSize;
+		let newHeigth = content.offsetHeight;
+		if (newHeight > height){
+			$fontSize = $fontSize*0.9;
+			content.style.fontSize = $fontSize;
+			return changeSize(content, $fontSize);
+		} else {
+			return content;
+		}
+	}
+	
+	content = changeSize(content, $fontsize);
   })
   .catch (error => {
   	alert(error);

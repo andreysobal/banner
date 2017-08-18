@@ -30,19 +30,16 @@ const strings = [
     textBottom: "7-дневная пробная версия"
   }
 ]
-console.log("cont: ", strings);
 
+/*Receive lang from server*/
 fetch('../data.db')
 	.then(response => response.json())
   .then(data => {
-    console.log("data", data);
   	let lang = data.lang;
-    console.log("lang", lang);
     let text;
     strings.forEach((item, i) => {
       if (item.lang === lang){
         text = item;
-        console.log("res: ", text);
       }
     });
     let content = createElem("div", "content");
@@ -52,21 +49,27 @@ fetch('../data.db')
     textTop.id = "text_top";
     let textBottom = createElem("div", "", text.textBottom);
     textBottom.id = "text_bottom";
-    textBottom.id = "text_bottom";
     content.innerHTML += img.outerHTML + textTop.outerHTML + textBottom.outerHTML;
-    console.log("cont ", content);
-    let width = document.getElementsByClassName('content')[0].offsetWidth;
-    console.log("width ", width);
-    newWidth = content.offsetWidth;
-    console.log("cont width ", newWidth);
+
+    let height = document.getElementsByClassName('content')[0].offsetHeight;
     document.getElementsByClassName('content')[0].remove();
+    document.getElementsByTagName('html')[0].setAttribute("lang", lang);
     document.getElementById('banner').appendChild(content);
     
+    let newHeight = content.offsetHeight;
+    console.log("height", newHeight);
+    if (newHeight > height){
+      document.getElementById('text_top').style.fontSize="0.7rem";
+      document.getElementById('text_top').style.lineHeight="1rem";
+      document.getElementById('text_bottom').style.fontSize="0.65rem";
+      document.getElementById('text_bottom').style.lineHeight="1rem";
+    }
   })
   .catch (error => {
-  	alert(error);						// an errors handler must be added !!!!
+  	alert(error);
   });
 
+  /*elemnts manufacturing*/
   function createElem (elem, className, cont, src) {
   	div = document.createElement(elem);
   	div.setAttribute("class", className);

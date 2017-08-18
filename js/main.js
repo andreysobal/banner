@@ -58,7 +58,8 @@ fetch('./data.db')
     
     let newHeight = content.offsetHeight;
     console.log("height", newHeight);
-    let $fontsize = content.style.fontSize;
+	let computedStyle = content.currentStyle || window.getComputedStyle(content, null);	
+    let $fontsize = parseInt(computedStyle.fontSize);
     console.log("$fontsize", $fontsize);
 
 	function changeSize (content, fontSize){

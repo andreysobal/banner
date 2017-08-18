@@ -32,7 +32,7 @@ const strings = [
 ]
 
 /*Receive lang from server*/
-fetch('../data.db')
+fetch('./data.db')
 	.then(response => response.json())
   .then(data => {
   	let lang = data.lang;

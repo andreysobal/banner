@@ -35,48 +35,48 @@ const strings = [
 fetch('./data.db')
 	.then(response => response.json())
   .then(data => {
-  	let lang = data.lang;
-    let text;
-    strings.forEach((item, i) => {
-      if (item.lang === lang){
-        text = item;
-      }
-    });
-    let content = createElem("div", "content");
-    let img = createElem("div", "");
-    img.id = "icon";
-    let textTop = createElem("div", "", text.textTop);
-    textTop.id = "text_top";
-    let textBottom = createElem("div", "", text.textBottom);
-    textBottom.id = "text_bottom";
-    content.innerHTML += img.outerHTML + textTop.outerHTML + textBottom.outerHTML;
+  	if (data.lang) {
+      let lang = data.lang;
+      document.getElementsByTagName('html')[0].setAttribute("lang", lang);
+      let text;
+      strings.forEach((item, i) => {
+        if (item.lang === lang){
+          text = item;
+        }//end if
+      })//end forEach
 
-    let height = document.getElementsByClassName('content')[0].offsetHeight;
-    document.getElementsByClassName('content')[0].remove();
-    document.getElementsByTagName('html')[0].setAttribute("lang", lang);
-    document.getElementById('banner').appendChild(content);
-    
-    let newHeight = content.offsetHeight;
-    console.log("height", newHeight);
-    if (newHeight > height){
-      document.getElementById('text_top').style.fontSize="0.7rem";
-      document.getElementById('text_top').style.lineHeight="1rem";
-      document.getElementById('text_bottom').style.fontSize="0.65rem";
-      document.getElementById('text_bottom').style.lineHeight="1rem";
-    }
+      const height = parseInt(getComputedStyle(document.getElementById('content')).height);
+     
+      let textTop = document.createElement("div");
+      textTop.setAttribute("id", "text_top");
+      textTop.innerHTML = text.textTop;
+
+      let textBottom = document.createElement("div");
+      textBottom.setAttribute("id", "text_bottom");
+      textBottom.innerHTML = text.textBottom;
+     
+      document.getElementById('text_top').remove();
+      document.getElementById('text_bottom').remove();
+      let content = document.getElementById('content');
+      content.appendChild(textTop);
+      content.appendChild(textBottom);
+
+      let $fontSize = parseInt(getComputedStyle(content).fontSize);
+      resizeFont (content, $fontSize, height);
+    }//end if
   })
   .catch (error => {
   	alert(error);
   });
 
-  /*elemnts manufacturing*/
-  function createElem (elem, className, cont, src) {
-  	div = document.createElement(elem);
-  	div.setAttribute("class", className);
-  	if (cont) {div.innerHTML=cont};
-  	if (src) {
-  		div.setAttribute("src", src);
-  		div.setAttribute("alt", "The Poster");
-  	};
-  	return div;
+  /*for gradually fontSize reducing*/
+  function resizeFont (content, $fontSize, height){
+    $fontSize = ($fontSize)*0.9;
+    content.style.fontSize = $fontSize+"em";
+    let newHeight = parseInt(getComputedStyle(content).height);
+    if (newHeight > height) {
+      resizeFont (content, $fontSize, height);
+    } else {
+      return content;
+    }
   };

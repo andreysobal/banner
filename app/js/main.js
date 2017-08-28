@@ -32,7 +32,7 @@ const strings = [
 ]
 
 /*Receive lang from server*/
-fetch('./data.db')
+/*fetch('./data.db')
 	.then(response => response.json())
   .then(data => {
   	if (data.lang) {
@@ -67,7 +67,36 @@ fetch('./data.db')
   })
   .catch (error => {
   	alert(error);
-  });
+  });*/
+
+var url = window.location.search;
+console.log("Status text: ", url);
+if (url){
+  let lang = url.replace(/^.*?\=/,"");
+  console.log("lang", lang);
+  strings.forEach (function(item, i){
+    if (item.lang == lang){
+      let text = item;
+      console.log("lang: ", lang, ", text: ", text.textTop);
+      document.getElementsByTagName('html')[0].setAttribute("lang", lang);
+
+      const height = parseInt(getComputedStyle(document.getElementById('content')).height);
+      let textTop = document.createElement("div");
+      textTop.setAttribute("id", "text_top");
+      textTop.innerHTML = text.textTop;
+      let textBottom = document.createElement("div");
+      textBottom.setAttribute("id", "text_bottom");
+      textBottom.innerHTML = text.textBottom;
+      document.getElementById('text_top').remove();
+      document.getElementById('text_bottom').remove();
+      let content = document.getElementById('content');
+      content.appendChild(textTop);
+      content.appendChild(textBottom);
+      let $fontSize = parseInt(getComputedStyle(content).fontSize);
+      resizeFont (content, $fontSize, height);
+    }//end if
+  })//end forEach
+}//end if
 
   /*for gradually fontSize reducing*/
   function resizeFont (content, $fontSize, height){

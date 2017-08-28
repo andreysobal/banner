@@ -74,7 +74,7 @@ window.onload = function() {
   //correct new method of language selection
   var url = window.location.search;
   if (url){
-    let lang = url.replace(/^.*?\=/,"");
+    var lang = url.replace(/^.*?\=/,"");
     strings.forEach (function(item, i){
       if (item.lang == lang){
         let text = item;
@@ -96,21 +96,24 @@ window.onload = function() {
         content.appendChild(textBottom);
 
         let $fontSize = parseInt(getComputedStyle(document.getElementById('text_top')).fontSize);
-        resizeFont (document.getElementById('text_top'), $fontSize, topHeight);
+        resizeFont (document.getElementById('text_top'), $fontSize, topHeight, lang);
         $fontSize = parseInt(getComputedStyle(document.getElementById('text_bottom')).fontSize);
-        resizeFont (document.getElementById('text_bottom'), $fontSize, bottomHeight);
+        resizeFont (document.getElementById('text_bottom'), $fontSize, bottomHeight, lang);
       }//end if
     })//end forEach
   }//end if
   return false;
 }//end onload
   /*for gradually fontSize reducing*/
-  function resizeFont (content, $fontSize, height){
+  function resizeFont (content, $fontSize, height, lang){
     $fontSize = ($fontSize)*0.99;
-    content.style.fontSize = $fontSize+"em";
+    content.style.fontSize = $fontSize+"px";
+    if (lang === "ru" || lang === "ja") {
+      content.style.lineHeight = $fontSize*1.5+"px";
+    }
     let newHeight = parseInt(getComputedStyle(content).height);
     if (newHeight > height) {
-      resizeFont (content, $fontSize, height);
+      resizeFont (content, $fontSize, height, lang);
     } else {
       return content;
     }

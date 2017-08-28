@@ -57,7 +57,8 @@ body {
 	position: absolute;
 	top: 91vmin;
 	left: 36vw;
-	font-size:1.2rem;
+	padding-right: 20px;
+
 }
 #icon{
 	background: url("../img/4/icon.png") no-repeat;
@@ -69,7 +70,7 @@ body {
 }
 #text_top{
 	color: #ffffff;
-	font-family: catamaran;
+	font-family: catamaran, Verdana, sans-serif;
 	font-size:1em;
 	line-height: 1.2em;
 	text-transform: uppercase;
@@ -77,11 +78,24 @@ body {
 }
 #text_bottom{
 	color: #ffa000;
-	font-family: rubik;
+	font-family: rubik, sans-serif;
 	font-size:0.9em;
 	line-height: 1.2em;
 	text-transform: uppercase;
 }
+/* IPhones 5,5s*/
+@media only screen and (min-height: 568px){
+	#banner{
+		background: url("../img/6/bg.jpg") no-repeat;
+		-webkit-background-size: 100% 100%;
+		        background-size: 100%;
+	}
+	#content{
+		top: 116vw;
+		left: 36vw;
+	}
+}
+
 
 /* IPhones 6,6+*/
 @media only screen and (min-width : 375px){

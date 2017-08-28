@@ -33,48 +33,12 @@ window.onload = function() {
   ]
 
   /*Receive lang from server*/
-  //uncorrect method of language selection
-  /*fetch('./data.db')
-  	.then(response => response.json())
-    .then(data => {
-    	if (data.lang) {
-        let lang = data.lang;
-        document.getElementsByTagName('html')[0].setAttribute("lang", lang);
-        let text;
-        strings.forEach((item, i) => {
-          if (item.lang === lang){
-            text = item;
-          }//end if
-        })//end forEach
-
-        const height = parseInt(getComputedStyle(document.getElementById('content')).height);
-       
-        let textTop = document.createElement("div");
-        textTop.setAttribute("id", "text_top");
-        textTop.innerHTML = text.textTop;
-
-        let textBottom = document.createElement("div");
-        textBottom.setAttribute("id", "text_bottom");
-        textBottom.innerHTML = text.textBottom;
-       
-        document.getElementById('text_top').remove();
-        document.getElementById('text_bottom').remove();
-        let content = document.getElementById('content');
-        content.appendChild(textTop);
-        content.appendChild(textBottom);
-
-        let $fontSize = parseInt(getComputedStyle(content).fontSize);
-        resizeFont (content, $fontSize, height);
-      }//end if
-    })
-    .catch (error => {
-    	alert(error);
-    });*/
 
   //correct new method of language selection
   var url = window.location.search;
   if (url){
-    var lang = url.replace(/^.*?\=/,"");
+    var lang = url.replace(/^.*?\=/,"").replace(/\&.*?$/,"");
+    console.log(lang);
     strings.forEach (function(item, i){
       if (item.lang == lang){
         let text = item;

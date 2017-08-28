@@ -57,7 +57,8 @@ body {
 	position: absolute;
 	top: 91vmin;
 	left: 36vw;
-	font-size:1.2rem;
+	padding-right: 20px;
+
 }
 #icon{
 	background: url("../img/4/icon.png") no-repeat;

@@ -83,6 +83,19 @@ body {
 	line-height: 1.2em;
 	text-transform: uppercase;
 }
+/* IPhones 5,5s*/
+@media only screen and (min-height: 568px){
+	#banner{
+		background: url("../img/6/bg.jpg") no-repeat;
+		-webkit-background-size: 100% 100%;
+		        background-size: 100%;
+	}
+	#content{
+		top: 116vw;
+		left: 36vw;
+	}
+}
+
 
 /* IPhones 6,6+*/
 @media only screen and (min-width : 375px){
